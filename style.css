@@ -5,6 +5,17 @@
   font-family: sans-serif;
 }
 
+:root {
+  --radius: 0.25rem;
+  --main-color: #489fb5;
+  --second-color: #82c0cc;
+  --complementary-color: #ffa62b;
+  --bg-color: #16697a;
+  --text-color: #ede7e3;
+  --red: #ff412b;
+  --transition: 0.25s ease;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -16,14 +27,14 @@ body {
 .wrapper {
   width: 65vmin;
   height: 70vmin;
-  background: #293447;
+  background: var(--main-color);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 0.5rem;
+  border-radius: var(--radius);
 
   & .game-details {
-    color: #b8c6dc;
+    color: var(--text-color);
     font-size: 1.2rem;
     font-weight: 500;
     padding: 20px 27px;
@@ -34,16 +45,54 @@ body {
   & .play-board {
     width: 100%;
     height: 100%;
-    background: #212837;
+    background: var(--bg-color);
     display: grid;
     grid-template: repeat(30, 1fr) / repeat(30, 1fr);
 
     & .food {
-      background: red;
+      background: var(--red);
     }
 
     & .s-head {
-      background: greenyellow;
+      background: rgb(170, 224, 89);
+    }
+  }
+}
+
+.modal-container {
+  position: fixed;
+  visibility: hidden;
+
+  & .modal {
+    padding: 4rem;
+    background: var(--second-color);
+    border-radius: var(--radius);
+    box-shadow: 1px 10px 10px rgba(41, 41, 41, 0.119);
+    text-align: center;
+
+    & h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    & p {
+      margin-bottom: 2rem;
+    }
+
+    & button {
+      padding: 1rem;
+      font-weight: bold;
+      background: var(--complementary-color);
+      border-radius: var(--radius);
+      border: var(--bg-color) solid 2px;
+      transition: filter var(--transition);
+
+      &:hover {
+        filter: brightness(1.1);
+      }
+
+      &:active {
+        transform: scale(1.01);
+      }
     }
   }
 }

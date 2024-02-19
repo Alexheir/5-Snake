@@ -1,6 +1,8 @@
 const playBoard = document.querySelector(".play-board");
 const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
+const modalElement = document.querySelector(".modal-container");
+const buttonReload = document.querySelector(".reload");
 
 // Fruta
 let foodX, foodY;
@@ -24,9 +26,16 @@ highScoreElement.innerHTML = `High Score: ${highScore}`;
 let gameOver = false;
 const handleGameOver = () => {
   clearInterval(setIntervalID);
-  alert("Game Over!");
+  modalElement.style.visibility = "initial";
+};
+
+/* location.reload(); */
+
+const reloadPage = () => {
   location.reload();
 };
+
+buttonReload.onclick = reloadPage;
 
 // Elegir numero aleatorio
 const changeFoodPosition = () => {
