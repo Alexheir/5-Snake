@@ -51,6 +51,7 @@ body {
 
     & .food {
       background: var(--red);
+      border-radius: 1rem;
     }
 
     & .s-head {
