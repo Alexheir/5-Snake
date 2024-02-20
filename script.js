@@ -3,6 +3,7 @@ const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
 const modalElement = document.querySelector(".modal-container");
 const buttonReload = document.querySelector(".reload");
+const modalScoreElement = document.querySelector("#modal-puntaje");
 
 // Fruta
 let foodX, foodY;
@@ -16,18 +17,20 @@ let velocityX = 0,
   velocityY = 0;
 
 // Interval
-let setIntervalID;
+let intervalID;
 
 //Score
 let score = 0;
 let highScore = localStorage.getItem("high-score") || 0;
 highScoreElement.textContent = `High Score: ${highScore}`;
 
+let modalScore = 0;
+
 //Game Over
 let gameOver = false;
 
 const handleGameOver = () => {
-  clearInterval(setIntervalID);
+  clearInterval(intervalID);
   modalElement.style.visibility = "initial";
 };
 
@@ -85,6 +88,9 @@ const initGame = () => {
     localStorage.setItem("high-score", highScore);
     highScoreElement.textContent = `High Score: ${highScore}`;
     scoreElement.textContent = `Score: ${score}`;
+    modalScore = score;
+    modalScoreElement.textContent = `Your Score is ${modalScore} | High Score is ${highScore}`;
+   
   }
 
   snakeX += velocityX;
@@ -112,22 +118,20 @@ const initGame = () => {
   snakeBody.pop();
 };
 
-// Variable para controlar la velocidad del snake
-let speed = 250; // Velocidad inicial
+//Speed
+let speed = 250; //Initial speed
 
-// Variable para controlar si se está presionando la tecla Space
 let spacePressed = false;
 
-// Función para cambiar la velocidad del snake
 const changeSpeed = (newSpeed) => {
   speed = newSpeed; // Cambiar la velocidad
-  clearInterval(newIntervalID); // Limpiar el intervalo actual
-  newIntervalID = setInterval(initGame, speed); // Configurar un nuevo intervalo con la nueva velocidad
+  clearInterval(intervalID); // Limpiar el intervalo actual
+  intervalID = setInterval(initGame, speed); // Configurar un nuevo intervalo con la nueva velocidad
 };
 
 // Event listener para detectar la presión y liberación de la tecla Space
 document.addEventListener("keydown", (e) => {
-  if (e.key === " ") {
+  if (e.key === " " && !spacePressed) {
     spacePressed = true;
     changeSpeed(50); // Cambiar la velocidad a 50
   }
@@ -141,7 +145,7 @@ document.addEventListener("keyup", (e) => {
 });
 
 // Actualización de la función setInterval para usar la velocidad actual
-let newIntervalID = setInterval(initGame, speed);
+intervalID = setInterval(initGame, speed);
 
 changeFoodPosition();
 initGame();
